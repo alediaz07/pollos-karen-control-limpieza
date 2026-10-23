@@ -3,7 +3,7 @@
 Aplicación web independiente para registrar limpieza libre de **baños, cocina y mesas (limpieza general)**, con selección de colaborador en un dispositivo compartido y firma manuscrita digital.
 
 ## Estado
-**Primera versión de desarrollo (no lista para producción).** El formulario y la captura táctil están implementados. Supabase, gestión administrativa, PDFs y despliegue requieren configuración adicional.
+**Primera versión de desarrollo (no lista para producción).** El formulario y la captura táctil están implementados. La base de datos y la función de registro ya están conectadas al proyecto Supabase curjmeshqrnwmwyxiwsx. Aún falta cargar colaboradores reales, implementar administración, PDFs, despliegue y pruebas reales.
 
 ## Características del prototipo
 - Registro de baños, cocina y limpieza general de mesas, sin horarios fijos.
@@ -16,7 +16,7 @@ Aplicación web independiente para registrar limpieza libre de **baños, cocina 
 
 ## Instalación
 1. Clonar el repositorio y ejecutar `npm install`.
-2. Crear un proyecto **nuevo e independiente** en Supabase.
+2. El proyecto independiente ya existe: `pollos-karen-limpieza` (`curjmeshqrnwmwyxiwsx`).
 3. La base de datos real del proyecto `pollos-karen-limpieza` ya tiene aplicadas las migraciones 001, 002 y 003. En otras instalaciones ejecutar las tres migraciones en orden. La función de guardado queda detrás de la Edge Function `submit-cleaning`.
 4. Registrar los tres colaboradores reales, sustituyendo los ejemplos:
    ```sql
@@ -44,3 +44,11 @@ Aplicación web independiente para registrar limpieza libre de **baños, cocina 
 - `.env.example` y `.env.production`: variables públicas de Supabase.
 
 © Pollos Karen.
+
+## Conexión actual
+- Proyecto: `pollos-karen-limpieza`.
+- URL: `https://curjmeshqrnwmwyxiwsx.supabase.co`.
+- Edge Function: `submit-cleaning` (desplegada).
+- Tablas: `employees`, `cleaning_records`, `cleaning_record_items`, `cleaning_signatures`, `admin_users`.
+- Hay cero colaboradores y cero limpiezas de prueba hasta que se registren personas reales.
+- Las firmas siguen temporalmente en PostgreSQL con acceso restringido; la migración a Storage privado aún está pendiente.
