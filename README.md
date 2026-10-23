@@ -52,3 +52,30 @@ Aplicación web independiente para registrar limpieza libre de **baños, cocina 
 - Tablas: `employees`, `cleaning_records`, `cleaning_record_items`, `cleaning_signatures`, `admin_users`.
 - Hay cero colaboradores y cero limpiezas de prueba hasta que se registren personas reales.
 - Las firmas siguen temporalmente en PostgreSQL con acceso restringido; la migración a Storage privado aún está pendiente.
+
+## Panel administrativo (octubre 2026)
+- Desde la pestaña **Administración** se inicia sesión con correo y contraseña de Supabase Auth.
+- Un usuario autenticado solo puede acceder si su UUID figura en `public.admin_users`. No hay usuarios administrativos creados automáticamente.
+- Historial filtrable por área, colaborador y fechas (hasta los 500 registros más recientes).
+- Al abrir un registro se consultan las tareas realizadas y su firma; se puede descargar una constancia individual en PDF.
+- Alta y activación/desactivación de colaboradores, sin borrar registros anteriores.
+- El público y el personal sin cuenta administrativa no pueden leer firmas ni historial completo.
+
+### Dar de alta al primer administrador
+1. En Supabase Dashboard del proyecto `curjmeshqrnwmwyxiwsx`, abrir **Authentication → Users**.
+2. Crear una cuenta mediante **Add user → Create new user** con un correo propio y contraseña robusta. Evitar contraseñas compartidas.
+3. Copiar el **UUID** de ese usuario desde Authentication → Users.
+4. En **SQL Editor** ejecutar, sustituyendo el UUID por el que acaba de crear:
+   ```sql
+   insert into public.admin_users(user_id)
+   values ('REEMPLAZAR-CON-UUID-DE-AUTHENTICATION');
+   ```
+5. Abrir el sitio web, pulsar **Administración** e iniciar sesión con esas credenciales.
+
+**No pegar contraseñas ni claves de servicio en el chat, archivos públicos, ni el repositorio.** Si se utiliza una cuenta personal de correo, habilitar las medidas de seguridad que ofrezca Supabase Auth. La lista de firmas sigue siendo confidencial.
+
+### Pendiente antes de adopción definitiva
+- Mover imágenes de firmas de la tabla privada a Supabase Storage privado.
+- Establecer protección adicional contra abuso en la Edge Function anónima.
+- Implementar edición administrativa de las actividades del checklist (actualmente definidas por área en el código).
+- Agregar pruebas de integración del acceso administrador y consulta PDF en navegadores móviles.
